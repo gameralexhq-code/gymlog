@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: unzip -o GymLog.zip
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -15,7 +16,8 @@ jobs:
         with:
           gradle-version: "8.9"
       - run: gradle assembleDebug --stacktrace
+        working-directory: GymLog
       - uses: actions/upload-artifact@v4
         with:
           name: GymLog-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: GymLog/app/build/outputs/apk/debug/*.apk
